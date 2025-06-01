@@ -14,21 +14,6 @@ type Player struct {
 }
 
 func (p *Player) Update() {
-	if ebiten.IsKeyPressed(ebiten.KeyA) {
-		p.X -= p.Speed
-		p.Animated.direction = dirLeft
-	} else if ebiten.IsKeyPressed(ebiten.KeyD) {
-		p.X += p.Speed
-		p.Animated.direction = dirRight
-	} else if ebiten.IsKeyPressed(ebiten.KeyW) {
-		p.Y -= p.Speed
-		p.Animated.direction = dirUp
-		// up only idle only  has 4 frames
-	} else if ebiten.IsKeyPressed(ebiten.KeyS) {
-		p.Y += p.Speed
-		p.Animated.direction = dirDown
-	}
-
 	p.Animated.Update()
 }
 
@@ -38,7 +23,11 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	ebitenutil.DebugPrint(screen, fmt.Sprintf("%v", p.Animated.direction))
 }
 
-func newPlayer(walkImg *ebiten.Image) (*Player, error) {
+func newPlayer(
+	walkImg *ebiten.Image,
+	attackImg *ebiten.Image,
+	idleImg *ebiten.Image,
+) (*Player, error) {
 	return &Player{
 		Animated: Animated{
 			Entity: Entity{
@@ -50,17 +39,28 @@ func newPlayer(walkImg *ebiten.Image) (*Player, error) {
 			frameWidth:  64,
 			frameHeight: 64,
 			direction:   dirDown,
-			state:       stateWalk,
+			state:       stateIdle,
 			Spritesheets: map[int]*ebiten.Image{
-				// stateIdle:   idleSheet,
-				stateWalk: walkImg,
-				// stateAttack: attackSheet,
+				stateWalk:   walkImg,
+				stateAttack: attackImg,
+				stateIdle:   idleImg,
 			},
 			AnimationFrames: map[AnimationKey]AnimationRow{
+				// walking
 				{stateWalk, dirDown}:  {RowIndex: 0, FrameCount: 6, FrameSpeed: 6},
 				{stateWalk, dirLeft}:  {RowIndex: 1, FrameCount: 6, FrameSpeed: 6},
 				{stateWalk, dirRight}: {RowIndex: 2, FrameCount: 6, FrameSpeed: 6},
 				{stateWalk, dirUp}:    {RowIndex: 3, FrameCount: 6, FrameSpeed: 6},
+				// attacking
+				{stateAttack, dirDown}:  {RowIndex: 0, FrameCount: 6, FrameSpeed: 6},
+				{stateAttack, dirLeft}:  {RowIndex: 1, FrameCount: 6, FrameSpeed: 6},
+				{stateAttack, dirRight}: {RowIndex: 2, FrameCount: 6, FrameSpeed: 6},
+				{stateAttack, dirUp}:    {RowIndex: 3, FrameCount: 6, FrameSpeed: 6},
+				// idle
+				{stateIdle, dirDown}:  {RowIndex: 0, FrameCount: 6, FrameSpeed: 10},
+				{stateIdle, dirLeft}:  {RowIndex: 1, FrameCount: 6, FrameSpeed: 10},
+				{stateIdle, dirRight}: {RowIndex: 2, FrameCount: 6, FrameSpeed: 10},
+				{stateIdle, dirUp}:    {RowIndex: 3, FrameCount: 4, FrameSpeed: 20},
 			},
 		},
 		Speed: 2.5,

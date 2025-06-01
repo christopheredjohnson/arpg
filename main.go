@@ -9,13 +9,29 @@ import (
 
 func main() {
 
-	swordIdle, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Walk_full.png")
+	walkImg, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Walk_full.png")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	p, err := newPlayer(swordIdle)
+	attackImg, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_attack_full.png")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	idleImg, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Idle_full.png")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	p, err := newPlayer(
+		walkImg,
+		attackImg,
+		idleImg,
+	)
 
 	if err != nil {
 		log.Fatal(err)

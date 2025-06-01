@@ -18,14 +18,12 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 
-	drawTileLayer(
-		screen,
-		g.tileMap.Layers[0], // first visible layer
-		g.tilesetData,       // parsed tileset data
-		g.tileImage,         // loaded image
-		g.tileMap.TileWidth,
-		g.tileMap.TileHeight,
-	)
+	for _, layer := range g.tileMap.Layers {
+		drawTileLayer(screen, layer, g.tilesetData, // parsed tileset data
+			g.tileImage, // loaded image
+			g.tileMap.TileWidth,
+			g.tileMap.TileHeight)
+	}
 
 	g.Player.Draw(screen)
 }

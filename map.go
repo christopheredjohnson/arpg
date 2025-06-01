@@ -90,7 +90,8 @@ func drawTileLayer(screen *ebiten.Image, layer Layer, tileset *TilesetData, tile
 	tileHeight := tileset.TileHeight
 	columns := tileset.Columns
 
-	for i, tileID := range layer.Data {
+	for i := len(layer.Data) - 1; i >= 0; i-- {
+		tileID := layer.Data[i]
 		if tileID == 0 {
 			continue // empty tile
 		}

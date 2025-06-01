@@ -56,14 +56,12 @@ func main() {
 
 	tilesetRef := tileMap.Tilesets[0] // first tileset reference
 	cp := cleanPath(tilesetRef.Source)
-	log.Println(cp)
 	tilesetData, err := loadTilesetData(path.Join("assets/maps/", cp))
 
 	if err != nil {
 		log.Fatal(err)
 	}
 	cp = cleanPath(tilesetData.Image)
-	log.Println(cp)
 	tilesetImage, err := loadTilesetImage(path.Join("assets/maps/tilesets/", cp))
 
 	if err != nil {

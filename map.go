@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"image"
 	"os"
 
@@ -65,8 +64,6 @@ func loadTileMap(path string) (*TileMap, error) {
 	}
 	var tileMap TileMap
 	err = json.Unmarshal(data, &tileMap)
-
-	fmt.Println(tileMap)
 
 	if err != nil {
 		return nil, err

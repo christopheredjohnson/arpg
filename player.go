@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 type Player struct {
@@ -12,11 +15,45 @@ type Player struct {
 }
 
 func (p *Player) Update() {
+
+	moving := false
+
+	if ebiten.IsKeyPressed(ebiten.KeyW) {
+		p.Y -= p.Speed
+		moving = true
+		p.Animated.direction = dirUp
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyS) {
+		p.Y += p.Speed
+		moving = true
+		p.Animated.direction = dirDown
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyA) {
+		p.X -= p.Speed
+		moving = true
+		p.Animated.direction = dirLeft
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyD) {
+		p.X += p.Speed
+		moving = true
+		p.Animated.direction = dirRight
+	}
+
+	if moving {
+		p.Animated.state = stateWalk
+	} else {
+		p.Animated.state = stateIdle
+	}
 	p.Animated.Update()
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
 	p.Animated.Draw(screen)
+
+	ebitenutil.DebugPrintAt(screen, fmt.Sprintf("%d", len(p.Inventory.Items)), int(p.X)-6, int(p.Y)-32)
 }
 
 func newPlayer(
@@ -61,7 +98,8 @@ func newPlayer(
 		},
 		Speed: 2.5,
 		Inventory: Inventory{
-			Size: 10,
+			Items: []*Item{},
+			Size:  10,
 		},
 	}, nil
 }

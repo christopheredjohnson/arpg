@@ -3,22 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "spawn.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "spawn.json": {
             "scale": 0.75,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 182,
-                "y": 316
+                "x": 370,
+                "y": 356
             }
         },
         "tilesets/MainLev2.0.json": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 1.1554,
             "scaleInEditor": 1
         }
     },
@@ -29,7 +29,6 @@
     "map.tileWidth": 16,
     "map.width": 100,
     "openFiles": [
-        "spawn.json"
     ],
     "project": "arpg.tiled-project",
     "recentFiles": [

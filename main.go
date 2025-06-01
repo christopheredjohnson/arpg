@@ -7,6 +7,11 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
+const (
+	screenWidth  = 640
+	screenHeight = 480
+)
+
 type Entity struct {
 	X, Y              float64
 	Sprite            *ebiten.Image
@@ -23,43 +28,26 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-
 	g.Player.Draw(screen)
 }
 
-func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
+func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+	return screenWidth, screenHeight
 }
 
 func main() {
 
-	playerImg, _, err := ebitenutil.NewImageFromFile("assets/images/player.png")
+	swordIdle, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Idle_full.png")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	g := &Game{
-		Player: &Player{
-			Animated: Animated{
-				Entity: Entity{
-					X:      100,
-					Y:      100,
-					Sprite: playerImg,
-				},
-				frameOX:     0,
-				frameOY:     0,
-				frameWidth:  16,
-				frameHeight: 16,
-				frameCount:  2,
-				frameSpeed:  10,
-				Vertical:    true,
-			},
-			Speed: 1.0,
-		},
+		Player: newPlayer(swordIdle),
 	}
 
-	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Hello, World!")
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)

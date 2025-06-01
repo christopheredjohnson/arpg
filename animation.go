@@ -16,6 +16,8 @@ type Animated struct {
 	frameHeight int
 	frameCount  int
 	frameSpeed  int
+	paddingX    int // horizontal padding between frames
+	paddingY    int // vertical padding between rows
 }
 
 func (a *Animated) Update() {
@@ -28,14 +30,11 @@ func (a *Animated) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(a.X, a.Y)
 
 	i := (a.count / a.frameSpeed) % a.frameCount
-	var sx, sy int
-
+	sx, sy := a.frameOX, a.frameOY
 	if a.Vertical {
-		sx = a.frameOX
-		sy = a.frameOY + i*a.frameHeight
+		sy += i * (a.frameHeight + a.paddingY)
 	} else {
-		sx = a.frameOX + i*a.frameWidth
-		sy = a.frameOY
+		sx += i * (a.frameWidth + a.paddingX)
 	}
 
 	sub := a.Sprite.SubImage(image.Rect(sx, sy, sx+a.frameWidth, sy+a.frameHeight)).(*ebiten.Image)

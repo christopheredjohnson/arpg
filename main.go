@@ -37,7 +37,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 
 func main() {
 
-	swordIdle, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Idle_full.png")
+	swordIdle, _, err := ebitenutil.NewImageFromFile("assets/images/player/Sword_Walk_full.png")
 
 	if err != nil {
 		log.Fatal(err)

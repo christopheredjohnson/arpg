@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -11,9 +12,12 @@ type Player struct {
 	Animated
 	Speed float64
 	State int
+	Inventory
 }
 
 func (p *Player) Update() {
+
+	log.Println(p.Inventory)
 	p.Animated.Update()
 }
 
@@ -38,7 +42,7 @@ func newPlayer(
 			frameOY:     0,
 			frameWidth:  64,
 			frameHeight: 64,
-			direction:   dirUp,
+			direction:   dirDown,
 			state:       stateIdle,
 			Spritesheets: map[int]*ebiten.Image{
 				stateWalk:   walkImg,
@@ -64,5 +68,8 @@ func newPlayer(
 			},
 		},
 		Speed: 2.5,
+		Inventory: Inventory{
+			Size: 10,
+		},
 	}, nil
 }

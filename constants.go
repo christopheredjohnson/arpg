@@ -17,3 +17,11 @@ const (
 	stateWalk
 	stateAttack
 )
+
+type ItemType int
+
+const (
+	ItemWeapon ItemType = iota
+	ItemArmor
+	ItemConsumable
+)

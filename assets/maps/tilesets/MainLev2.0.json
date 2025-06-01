@@ -1,0 +1,14 @@
+{ "columns":102,
+ "image":"..\/..\/images\/MainLev2.0.png",
+ "imageheight":1536,
+ "imagewidth":1632,
+ "margin":0,
+ "name":"MainLev2.0",
+ "spacing":0,
+ "tilecount":9792,
+ "tiledversion":"1.11.0",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

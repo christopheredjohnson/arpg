@@ -1,11 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"log"
-
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 type Player struct {
@@ -16,15 +12,11 @@ type Player struct {
 }
 
 func (p *Player) Update() {
-
-	log.Println(p.Inventory)
 	p.Animated.Update()
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
 	p.Animated.Draw(screen)
-
-	ebitenutil.DebugPrint(screen, fmt.Sprintf("%v", p.Animated.direction))
 }
 
 func newPlayer(
